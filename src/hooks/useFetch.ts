@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 interface useStateProps {
   data: Pokemon | null;
@@ -13,8 +13,19 @@ interface Error {
 }
 
 interface Pokemon {
-  name: string
+  name: string,
+  id: number,
+  sprites: Sprites
 }
+
+interface Sprites {
+  back_default: string,
+  back_shiny: string,
+  front_default: string,
+  front_shiny: string,
+}
+
+const localCache: { [key: string]: Pokemon } = {};
 
 export const useFetch = (url:string) => {
 
@@ -27,6 +38,16 @@ export const useFetch = (url:string) => {
 
   useEffect(() => {
     const getFetch = async() => {
+
+      if(localCache[url]) {
+        setState({
+          data: localCache[url],
+          isLoading: false,
+          hasError: false,
+          error: null
+        })
+        return;
+      }
 
       const setLoadingState= () => {
         setState({
@@ -61,7 +82,7 @@ export const useFetch = (url:string) => {
         error: null
       })
   
-      // Handle error
+      localCache[url] = data;
   
     }
     getFetch()
