@@ -5,8 +5,9 @@ export const CallbackHook:React.FC = () => {
   
   const [count, setCount] = useState(0);
 
-  const incrementFather = useCallback(() => {
-    setCount((value) => value + 1 );
+  const incrementFather = useCallback(
+    (value:number) => {
+      setCount((count) => count + value );
   }, []);
 
   // const increment = () => {

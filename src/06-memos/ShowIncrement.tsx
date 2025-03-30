@@ -1,5 +1,5 @@
 interface ShowIncrementProps {
-  increment: ()=> void
+  increment: (value:number)=> void
 }
 
 export const ShowIncrement:React.FC<ShowIncrementProps> = ({increment}) => {
@@ -7,7 +7,7 @@ export const ShowIncrement:React.FC<ShowIncrementProps> = ({increment}) => {
     <button
       className="btn btn-primary"
       onClick={() => {
-        increment();
+        increment(4);
       }}
     >
       Increment
